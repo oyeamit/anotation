@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Text.Word.TextWordActivity">
+    tools:context=".View.Text.Label.LabelActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_text_label"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/note_item" />
+        tools:listitem="@layout/note_text_labels_item" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

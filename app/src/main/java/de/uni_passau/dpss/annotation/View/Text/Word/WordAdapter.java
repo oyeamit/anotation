@@ -11,40 +11,39 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.uni_passau.dpss.annotation.Model.Text.NoteText;
+import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.R;
 
 public class NoteTextAdapter extends RecyclerView.Adapter<NoteTextAdapter.NoteHolder> {
-    private List<NoteText> noteTexts = new ArrayList<>();
+    private List<Word> words = new ArrayList<>();
     private onItemClickListener listener;
 
     @NonNull
     @Override
     public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_item, parent, false);
+                .inflate(R.layout.word_item, parent, false);
         return new NoteHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
-        NoteText currentNoteText = noteTexts.get(position);
-        holder.textViewWord.setText(currentNoteText.getWord());
-        holder.textViewLabel.setText(currentNoteText.getLabel());
+        Word currentWord = words.get(position);
+        holder.textViewWord.setText(currentWord.getWord());
     }
 
     @Override
     public int getItemCount() {
-        return noteTexts.size();
+        return words.size();
     }
 
-    public void setNoteTexts(List<NoteText> noteTexts) {
-        this.noteTexts = noteTexts;
+    public void setWords(List<Word> words) {
+        this.words = words;
         notifyDataSetChanged();
     }
 
-    public NoteText getNoteTextAt(int position){
-        return noteTexts.get(position);
+    public Word getNoteTextAt(int position){
+        return words.get(position);
     }
 
     class NoteHolder extends RecyclerView.ViewHolder {
@@ -54,21 +53,20 @@ public class NoteTextAdapter extends RecyclerView.Adapter<NoteTextAdapter.NoteHo
         public NoteHolder(View itemView) {
             super(itemView);
             textViewWord = itemView.findViewById(R.id.text_view_word);
-            textViewLabel = itemView.findViewById(R.id.text_view_label);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if(listener != null && position != RecyclerView.NO_POSITION)
-                    listener.onItemClick(noteTexts.get(position));
+                    listener.onItemClick(words.get(position));
                 }
             });
         }
     }
 
     public interface onItemClickListener{
-        void onItemClick(NoteText noteText);
+        void onItemClick(Word word);
     }
 
     public void setOnItemClickListener(onItemClickListener listener){

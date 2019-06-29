@@ -23,32 +23,6 @@
         android:hint="Word"
         android:inputType="text" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Label:"
-        android:textAppearance="@android:style/TextAppearance.Medium" />
-
-    <EditText
-        android:id="@+id/edit_text_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Label name"
-        android:inputType="textMultiLine" />
-
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Label name" />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgDeepDrop"
-        android:padding="5dp"
-        android:src="@m"/>
-
 
 </LinearLayout>
 

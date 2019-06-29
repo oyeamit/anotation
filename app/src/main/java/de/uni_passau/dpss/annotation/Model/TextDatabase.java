@@ -10,11 +10,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import de.uni_passau.dpss.annotation.Model.Text.NoteText;
+import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.Model.Text.NoteTextDao;
 
 
-@Database(entities = {NoteText.class}, version = 1)
+@Database(entities = {Word.class}, version = 1)
 public abstract class NoteDatabase extends RoomDatabase {
 
     private static NoteDatabase instance;
@@ -49,10 +49,10 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteTextDao.insert(new NoteText("Word 1", "Class 1"));
-            noteTextDao.insert(new NoteText("Word 2", "Class 2"));
-            noteTextDao.insert(new NoteText("Word 3", "Class 3"));
-            noteTextDao.insert(new NoteText("Word 4", "Class 3"));
+            noteTextDao.insert(new Word("Word 1", "Class 1"));
+            noteTextDao.insert(new Word("Word 2", "Class 2"));
+            noteTextDao.insert(new Word("Word 3", "Class 3"));
+            noteTextDao.insert(new Word("Word 4", "Class 3"));
             return null;
         }
     }

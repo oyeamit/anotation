@@ -22,7 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import de.uni_passau.dpss.annotation.Model.Text.NoteText;
+import de.uni_passau.dpss.annotation.Model.Text.Label;
+import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.ViewModel.Text.NoteTextViewModel;
 import de.uni_passau.dpss.annotation.R;
 
@@ -37,10 +38,13 @@ public class TextWordActivity extends AppCompatActivity {
 
     private NoteTextViewModel noteTextViewModel;
 
+    Label selectedLabel1 = new Label();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text_word);
+        setContentView(R.layout.activity_word);
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +55,12 @@ public class TextWordActivity extends AppCompatActivity {
             }
         });
 
-
-
         Intent intent = getIntent();
-        String selectedLabel = intent.getStringExtra(EXTRA_LABEL);
-        setTitle(selectedLabel);
+        Label selectedLabel = intent.getParcelableExtra("Selected Label");
+        setTitle(selectedLabel.getLabel());
+
+        selectedLabel1.setLabel(selectedLabel.getLabel());
+        selectedLabel1.setLabel_id(selectedLabel.getLabel_id());
 
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -68,11 +73,11 @@ public class TextWordActivity extends AppCompatActivity {
 
         noteTextViewModel = ViewModelProviders.of(this).get(NoteTextViewModel.class);
 
-        noteTextViewModel.getLabelWordsNotes(selectedLabel).observe(this, new Observer<List<NoteText>>() {
+        noteTextViewModel.getLabelWords(selectedLabel).observe(this, new Observer<List<Word>>() {
             @Override
-            public void onChanged(@Nullable List<NoteText> noteTexts) {
+            public void onChanged(@Nullable List<Word> words) {
                 //update RecyclerView
-                adapter.setNoteTexts(noteTexts);
+                adapter.setWords(words);
             }
         });
 
@@ -95,11 +100,10 @@ public class TextWordActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new NoteTextAdapter.onItemClickListener() {
             @Override
-            public void onItemClick(NoteText noteText) {
+            public void onItemClick(Word word) {
                 Intent intent = new Intent(TextWordActivity.this, AddEditNoteActivity.class);
-                intent.putExtra(AddEditNoteActivity.EXTRA_ID, noteText.getId());
-                intent.putExtra(AddEditNoteActivity.EXTRA_WORD, noteText.getWord());
-                intent.putExtra(AddEditNoteActivity.EXTRA_LABEL,noteText.getLabel());
+                intent.putExtra(AddEditNoteActivity.EXTRA_ID, word.getId());
+                intent.putExtra(AddEditNoteActivity.EXTRA_WORD, word.getWord());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
@@ -111,12 +115,12 @@ public class TextWordActivity extends AppCompatActivity {
 
         if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK){
             String word = data.getStringExtra(AddEditNoteActivity.EXTRA_WORD);
-            String label = data.getStringExtra(AddEditNoteActivity.EXTRA_LABEL);
+            int label_id = selectedLabel1.getLabel_id();
 
-            NoteText noteText = new NoteText(word, label);
-            noteTextViewModel.insert(noteText);
+            Word new_word = new Word(word, label_id);
+            noteTextViewModel.insert(new_word);
 
-            Toast.makeText(this, "NoteText saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Word saved", Toast.LENGTH_SHORT).show();
         }else if(requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
 
@@ -126,16 +130,16 @@ public class TextWordActivity extends AppCompatActivity {
             }
 
             String word = data.getStringExtra(AddEditNoteActivity.EXTRA_WORD);
-            String label = data.getStringExtra(AddEditNoteActivity.EXTRA_LABEL);
+            int label_id = selectedLabel1.getLabel_id();
 
-            NoteText noteText = new NoteText(word, label);
-            noteText.setId(id);
-            noteTextViewModel.update(noteText);
+            Word edit_word = new Word(word, label_id);
+            edit_word.setId(id);
+            noteTextViewModel.update(edit_word);
 
             Toast.makeText(this, "Word Note updated", Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(this, "NoteText not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Word not saved", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -150,7 +154,7 @@ public class TextWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_all_words:
-                noteTextViewModel.deleteAllNotes();
+                noteTextViewModel.deleteLabelWords(selectedLabel1);
                 Toast.makeText(this, "All words deleted", Toast.LENGTH_SHORT).show();
                 return true;
             default:

@@ -19,7 +19,7 @@
             android:layout_alignParentStart="true"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Word"
+            android:text="Label"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
