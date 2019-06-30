@@ -9,54 +9,74 @@ import android.app.Application;
 
 import java.util.List;
 
-import de.uni_passau.dpss.annotation.Repository.NoteRepository;
-import de.uni_passau.dpss.annotation.Model.Text.NoteText;
+import de.uni_passau.dpss.annotation.Model.Text.Label;
+import de.uni_passau.dpss.annotation.Model.Text.Word;
+import de.uni_passau.dpss.annotation.Repository.TextRepository;
 
 public class NoteTextViewModel extends AndroidViewModel {
-    private NoteRepository repository;
-    private LiveData<List<NoteText>> allWordNotes;
-    private LiveData<List<String>> allWordLabels;
-    private LiveData<List<NoteText>> allLabelWords;
+    private TextRepository repository;
+    private LiveData<List<Label>> all_word_label;
 
 
 
     public NoteTextViewModel(@NonNull Application application){
         super(application);
-        repository = new NoteRepository(application);
-        allWordNotes = repository.getAllNotes();
-        allWordLabels = repository.getAllWordLabels();
+        repository = new TextRepository(application);
+        all_word_label = repository.getAllLabels();
     }
 
 
 
-    public void insert(NoteText noteText) {
-        repository.insert(noteText);
+    public void insert(Word word) {
+        repository.insert(word);
     }
 
-    public void update(NoteText noteText) {
-        repository.update(noteText);
+    public void update(Word word) {
+        repository.update(word);
     }
 
-    public void delete(NoteText noteText) {
-        repository.delete(noteText);
+    public void delete(Word word) {
+        repository.delete(word);
     }
 
-    public void deleteAllNotes() {
-        repository.deleteAllNotes();
+    public void deleteAllWords() {
+        repository.deleteAllWords();
     }
 
-    public LiveData<List<NoteText>> getAllNotes() {
-        return allWordNotes;
-    }
-
-    public LiveData<List<String>> getAllWordLabels(){
-        return allWordLabels;
+    public void deleteLabelWords(Label label) {
+        repository.deleteLabelWords(label);
     }
 
 
-
-
-    public LiveData<List<NoteText>> getLabelWordsNotes(String selectedLabel) {
-        return repository.getLabelWordsNotes(selectedLabel);
+    public LiveData<List<Word>> getAllWords() {
+        return repository.getAllWords();
     }
+
+    public LiveData<List<Word>> getLabelWords(Label label){
+        return repository.getLabelWords(label.getLabel_id());
+    }
+
+
+
+    public void insert(Label label) {
+        repository.insert(label);
+    }
+
+    public void update(Label label) {
+        repository.update(label);
+    }
+
+    public void delete(Label label) {
+        repository.delete(label);
+    }
+
+    public void deleteAllLabels() {
+        repository.deleteAllLabels();
+    }
+
+    public LiveData<List<Label>> getAllLabels() {
+        return repository.getAllLabels();
+    }
+
+
 }

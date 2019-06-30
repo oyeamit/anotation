@@ -14,7 +14,7 @@ import java.util.List;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.R;
 
-public class NoteTextAdapter extends RecyclerView.Adapter<NoteTextAdapter.NoteHolder> {
+public class WordAdapter extends RecyclerView.Adapter<WordAdapter.NoteHolder> {
     private List<Word> words = new ArrayList<>();
     private onItemClickListener listener;
 

@@ -11,11 +11,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import de.uni_passau.dpss.annotation.Model.Text.Word;
-import de.uni_passau.dpss.annotation.Model.Text.NoteTextDao;
+import de.uni_passau.dpss.annotation.Model.Text.TextDao;
 
 
 @Database(entities = {Word.class}, version = 1)
-public abstract class NoteDatabase extends RoomDatabase {
+public abstract class TextDatabase extends RoomDatabase {
 
     private static NoteDatabase instance;
 

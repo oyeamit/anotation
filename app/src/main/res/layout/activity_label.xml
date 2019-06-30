@@ -10,7 +10,16 @@
         android:id="@+id/recycler_view_text_label"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/note_text_labels_item" />
+        tools:listitem="@layout/label_item" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="32dp"
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

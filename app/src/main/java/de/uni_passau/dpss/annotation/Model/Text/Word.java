@@ -5,21 +5,29 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "note_text_table")
-public class NoteText {
+@Entity(tableName = "word_table")
+public class Word {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String word;
 
-    private String label;
+    public int getLabel_id() {
+        return label_id;
+    }
+
+    public void setLabel_id(int label_id) {
+        this.label_id = label_id;
+    }
+
+    private int label_id;
 
 
 
-    public NoteText(String word, String label) {
+    public Word(String word, int label_id) {
         this.word = word;
-        this.label = label;
+        this.label_id = label_id;
     }
 
     public void setId(int id) {
@@ -34,9 +42,7 @@ public class NoteText {
         return word;
     }
 
-    public String getLabel() {
-        return label;
-    }
+
 
 
 

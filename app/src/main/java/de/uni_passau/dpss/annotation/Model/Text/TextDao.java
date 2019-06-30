@@ -12,7 +12,7 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface NoteTextDao {
+public interface TextDao {
 
     @Insert
     void insert(Word word);
@@ -30,11 +30,12 @@ public interface NoteTextDao {
     LiveData<List<Word>> getAllWords();
 
 
-    @Query("SELECT * FROM word_table WHERE label_id = :selected_label_id")
+    @Query("SELECT * FROM word_table WHERE label_id = :selected_label_id ORDER BY word ASC")
     LiveData<List<Word>> getLabelWords(int selected_label_id);
 
     @Query("DELETE FROM word_table WHERE label_id = :selected_label_id")
     void deleteLabelWords(int selected_label_id);
+
 
 
 
