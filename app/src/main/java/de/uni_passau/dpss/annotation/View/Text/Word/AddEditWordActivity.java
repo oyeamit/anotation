@@ -8,11 +8,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import de.uni_passau.dpss.annotation.R;
 
-public class AddEditNoteActivity extends AppCompatActivity {
+public class AddEditWordActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "de.uni_passau.dpss.annotation.EXTRA_ID";
     public static final String EXTRA_WORD =
@@ -20,7 +22,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
 
     private EditText editTextWord;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,9 @@ public class AddEditNoteActivity extends AppCompatActivity {
         editTextWord = findViewById(R.id.edit_text_word);
 
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        ActionBar actionbar = getSupportActionBar ();
+        actionbar.setDisplayHomeAsUpEnabled ( true );
+        actionbar.setHomeAsUpIndicator ( R.drawable.ic_close);
 
         Intent intent = getIntent();
 
@@ -66,6 +69,11 @@ public class AddEditNoteActivity extends AppCompatActivity {
         finish();
     }
 
+    private void cancelWord(){
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -80,7 +88,8 @@ public class AddEditNoteActivity extends AppCompatActivity {
                 saveNote();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                cancelWord();
+                return true;
         }
     }
 }
