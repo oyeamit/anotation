@@ -26,11 +26,11 @@ public interface TextDao {
     @Query("DELETE FROM word_table")
     void deleteAllWords();
 
-    @Query("SELECT * FROM word_table ORDER BY word ASC")
+    @Query("SELECT * FROM word_table ORDER BY LOWER(word) ASC")
     LiveData<List<Word>> getAllWords();
 
 
-    @Query("SELECT * FROM word_table WHERE label_id = :selected_label_id ORDER BY word ASC")
+    @Query("SELECT * FROM word_table WHERE label_id = :selected_label_id ORDER BY LOWER(word) ASC")
     LiveData<List<Word>> getLabelWords(int selected_label_id);
 
     @Query("DELETE FROM word_table WHERE label_id = :selected_label_id")
@@ -39,7 +39,7 @@ public interface TextDao {
 
 
 
-    @Query("SELECT * FROM label_table ORDER BY label ASC")
+    @Query("SELECT * FROM label_table ORDER BY LOWER(label) ASC")
     LiveData<List<Label>> getAllLabels();
 
     @Insert

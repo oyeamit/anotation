@@ -13,13 +13,13 @@ import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.Repository.TextRepository;
 
-public class NoteTextViewModel extends AndroidViewModel {
+public class ViewModel extends AndroidViewModel {
     private TextRepository repository;
     private LiveData<List<Label>> all_word_label;
 
 
 
-    public NoteTextViewModel(@NonNull Application application){
+    public ViewModel(@NonNull Application application){
         super(application);
         repository = new TextRepository(application);
         all_word_label = repository.getAllLabels();

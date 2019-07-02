@@ -47,7 +47,6 @@ public class TextRepository {
 
     }
 
-
     public LiveData<List<Word>> getAllWords() {
         return textDao.getAllWords();
     }
@@ -131,10 +130,12 @@ public class TextRepository {
 
 
 
+
+
+
     public LiveData<List<Label>> getAllLabels(){
         return textDao.getAllLabels();
     }
-
 
     public void insert(Label label) {
         new InsertLabelAsyncTask(textDao).execute(label);

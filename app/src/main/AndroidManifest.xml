@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Text.Word.TextWordActivity"></activity>
+        <activity android:name=".View.Text.Word.WordActivity"></activity>
         <activity
-            android:name=".View.Text.Label.TextLabelActivity"
+            android:name=".View.Text.Label.LabelActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +20,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.Text.Word.AddEditNoteActivity"
-            android:parentActivityName=".View.Text.Word.TextWordActivity" />
+            android:name=".View.Text.Word.AddEditWordActivity"
+            android:parentActivityName=".View.Text.Word.WordActivity" />
+        <activity
+            android:name=".View.Text.Label.AddEditLabelActivity"
+            android:parentActivityName=".View.Text.Label.LabelActivity" />
+
     </application>
 
 </manifest>

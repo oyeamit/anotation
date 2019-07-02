@@ -73,7 +73,7 @@ public class AddEditLabelActivity extends AppCompatActivity {
         finish();
     }
 
-    private void cancelWord(){
+    private void cancelLabel(){
 
         setResult(RESULT_CANCELED);
         finish();
@@ -94,7 +94,7 @@ public class AddEditLabelActivity extends AppCompatActivity {
                 saveNote();
                 return true;
             default:
-                cancelWord();
+                cancelLabel();
                 return super.onOptionsItemSelected(item);
         }
     }

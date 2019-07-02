@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,10 +25,11 @@ import java.util.List;
 
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
-import de.uni_passau.dpss.annotation.ViewModel.Text.NoteTextViewModel;
+import de.uni_passau.dpss.annotation.View.Text.Label.LabelActivity;
+import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
 import de.uni_passau.dpss.annotation.R;
 
-public class TextWordActivity extends AppCompatActivity {
+public class WordActivity extends AppCompatActivity {
     public static final String EXTRA_LABEL =
             "de.uni_passau.dpss.annotation.EXTRA_LABEL";
 
@@ -36,7 +38,7 @@ public class TextWordActivity extends AppCompatActivity {
     public static final int EDIT_NOTE_REQUEST = 2;
 
 
-    private NoteTextViewModel noteTextViewModel;
+    private ViewModel viewModel;
 
     Label selectedLabel1 = new Label();
 
@@ -50,10 +52,14 @@ public class TextWordActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TextWordActivity.this, AddEditNoteActivity.class);
+                Intent intent = new Intent(WordActivity.this, AddEditWordActivity.class);
                 startActivityForResult(intent, ADD_NOTE_REQUEST);
             }
         });
+
+        ActionBar actionbar = getSupportActionBar ();
+        actionbar.setDisplayHomeAsUpEnabled ( true );
+        actionbar.setHomeAsUpIndicator ( R.drawable.ic_back_arrow);
 
         Intent intent = getIntent();
         Label selectedLabel = intent.getParcelableExtra("Selected Label");
@@ -67,13 +73,13 @@ public class TextWordActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        final NoteTextAdapter adapter = new NoteTextAdapter();
+        final WordAdapter adapter = new WordAdapter();
         recyclerView.setAdapter(adapter);
 
 
-        noteTextViewModel = ViewModelProviders.of(this).get(NoteTextViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
 
-        noteTextViewModel.getLabelWords(selectedLabel).observe(this, new Observer<List<Word>>() {
+        viewModel.getLabelWords(selectedLabel).observe(this, new Observer<List<Word>>() {
             @Override
             public void onChanged(@Nullable List<Word> words) {
                 //update RecyclerView
@@ -92,18 +98,18 @@ public class TextWordActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                noteTextViewModel.delete(adapter.getNoteTextAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(TextWordActivity.this,"Word deleted", Toast.LENGTH_SHORT).show();
+                viewModel.delete(adapter.getWordAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(WordActivity.this,"Word deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
 
-        adapter.setOnItemClickListener(new NoteTextAdapter.onItemClickListener() {
+        adapter.setOnItemClickListener(new WordAdapter.onItemClickListener() {
             @Override
             public void onItemClick(Word word) {
-                Intent intent = new Intent(TextWordActivity.this, AddEditNoteActivity.class);
-                intent.putExtra(AddEditNoteActivity.EXTRA_ID, word.getId());
-                intent.putExtra(AddEditNoteActivity.EXTRA_WORD, word.getWord());
+                Intent intent = new Intent(WordActivity.this, AddEditWordActivity.class);
+                intent.putExtra(AddEditWordActivity.EXTRA_ID, word.getId());
+                intent.putExtra(AddEditWordActivity.EXTRA_WORD, word.getWord());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
@@ -114,29 +120,29 @@ public class TextWordActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK){
-            String word = data.getStringExtra(AddEditNoteActivity.EXTRA_WORD);
+            String word = data.getStringExtra(AddEditWordActivity.EXTRA_WORD);
             int label_id = selectedLabel1.getLabel_id();
 
             Word new_word = new Word(word, label_id);
-            noteTextViewModel.insert(new_word);
+            viewModel.insert(new_word);
 
             Toast.makeText(this, "Word saved", Toast.LENGTH_SHORT).show();
         }else if(requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(AddEditWordActivity.EXTRA_ID, -1);
 
             if (id == -1){
-                Toast.makeText(this, "Word Note can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Word can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            String word = data.getStringExtra(AddEditNoteActivity.EXTRA_WORD);
+            String word = data.getStringExtra(AddEditWordActivity.EXTRA_WORD);
             int label_id = selectedLabel1.getLabel_id();
 
             Word edit_word = new Word(word, label_id);
             edit_word.setId(id);
-            noteTextViewModel.update(edit_word);
+            viewModel.update(edit_word);
 
-            Toast.makeText(this, "Word Note updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Word updated", Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, "Word not saved", Toast.LENGTH_SHORT).show();
@@ -154,11 +160,15 @@ public class TextWordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_all_words:
-                noteTextViewModel.deleteLabelWords(selectedLabel1);
+                viewModel.deleteLabelWords(selectedLabel1);
                 Toast.makeText(this, "All words deleted", Toast.LENGTH_SHORT).show();
                 return true;
+
             default:
-                return super.onOptionsItemSelected(item);
+                Intent intent = new Intent(WordActivity.this, LabelActivity.class);
+                startActivity(intent);
+                return true;
+//                return super.onOptionsItemSelected(item);
         }
     }
 }

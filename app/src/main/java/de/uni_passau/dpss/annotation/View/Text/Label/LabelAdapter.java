@@ -11,35 +11,41 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.uni_passau.dpss.annotation.Model.Text.Label;
+import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.R;
 
-public class NoteTextLabelAdapter extends RecyclerView.Adapter<NoteTextLabelAdapter.NoteHolder>{
+public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.NoteHolder>{
 
-    private List<String> noteTextLabels = new ArrayList<>();
+    private List<Label> labels = new ArrayList<>();
     private onItemClickListener listener;
 
     @NonNull
     @Override
-    public NoteTextLabelAdapter.NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LabelAdapter.NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_text_labels_item, parent, false);
-        return new NoteTextLabelAdapter.NoteHolder(itemView);
+                .inflate(R.layout.label_item, parent, false);
+        return new LabelAdapter.NoteHolder(itemView);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull NoteTextLabelAdapter.NoteHolder holder, int position) {
-        String currentNoteText = noteTextLabels.get(position);
+    public void onBindViewHolder(@NonNull LabelAdapter.NoteHolder holder, int position) {
+        String currentNoteText = labels.get(position).getLabel();
         holder.textViewLabel.setText(currentNoteText);
     }
 
     @Override
     public int getItemCount() {
-        return noteTextLabels.size();
+        return labels.size();
     }
 
-    public void setNoteTextLabels(List<String> noteTextLabels) {
-        this.noteTextLabels = noteTextLabels;
+    public Label getLabelAt(int position){
+        return labels.get(position);
+    }
+
+    public void setlabels(List<Label> labels) {
+        this.labels = labels;
         notifyDataSetChanged();
     }
 
@@ -55,7 +61,7 @@ public class NoteTextLabelAdapter extends RecyclerView.Adapter<NoteTextLabelAdap
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION){
-                        listener.onItemClick(noteTextLabels.get(position));
+                        listener.onItemClick(labels.get(position));
                     }
 
                 }
@@ -64,7 +70,7 @@ public class NoteTextLabelAdapter extends RecyclerView.Adapter<NoteTextLabelAdap
     }
 
     public interface onItemClickListener {
-        void onItemClick(String label);
+        void onItemClick(Label label);
     }
 
     public void setOnItemClickListener(onItemClickListener listener){

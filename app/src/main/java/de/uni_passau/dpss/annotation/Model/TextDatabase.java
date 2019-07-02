@@ -10,21 +10,22 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.Model.Text.TextDao;
 
 
-@Database(entities = {Word.class}, version = 1)
+@Database(entities = {Word.class, Label.class}, version = 1)
 public abstract class TextDatabase extends RoomDatabase {
 
-    private static NoteDatabase instance;
+    private static TextDatabase instance;
 
-    public abstract NoteTextDao noteTextDao();
+    public abstract TextDao TextDao();
 
-    public static synchronized NoteDatabase getInstance(Context context) {
+    public static synchronized TextDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    NoteDatabase.class, "note_database")
+                    TextDatabase.class, "note_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -41,18 +42,18 @@ public abstract class TextDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private NoteTextDao noteTextDao;
+        private TextDao TextDao;
 
-        private PopulateDbAsyncTask(NoteDatabase db) {
-            noteTextDao = db.noteTextDao();
+        private PopulateDbAsyncTask(TextDatabase db) {
+            TextDao = db.TextDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteTextDao.insert(new Word("Word 1", "Class 1"));
-            noteTextDao.insert(new Word("Word 2", "Class 2"));
-            noteTextDao.insert(new Word("Word 3", "Class 3"));
-            noteTextDao.insert(new Word("Word 4", "Class 3"));
+//            TextDao.insert(new Word("Word 1", "Class 1"));
+//            TextDao.insert(new Word("Word 2", "Class 2"));
+//            TextDao.insert(new Word("Word 3", "Class 3"));
+//            TextDao.insert(new Word("Word 4", "Class 3"));
             return null;
         }
     }

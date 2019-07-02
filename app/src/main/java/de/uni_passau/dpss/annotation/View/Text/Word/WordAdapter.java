@@ -42,7 +42,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.NoteHolder> {
         notifyDataSetChanged();
     }
 
-    public Word getNoteTextAt(int position){
+    public Word getWordAt(int position){
         return words.get(position);
     }
 
