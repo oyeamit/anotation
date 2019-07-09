@@ -49,6 +49,10 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.NoteHolder>{
         notifyDataSetChanged();
     }
 
+    public void cancelModification(){
+        notifyDataSetChanged();
+    }
+
     class NoteHolder extends RecyclerView.ViewHolder {
         private TextView textViewLabel;
 

@@ -33,6 +33,7 @@ public class LabelActivity extends AppCompatActivity {
 
 
     private ViewModel viewModel;
+    private LabelAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class LabelActivity extends AppCompatActivity {
 
 
 
-        final LabelAdapter adapter = new LabelAdapter();
+        adapter = new LabelAdapter();
         recyclerView.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
@@ -146,6 +147,7 @@ public class LabelActivity extends AppCompatActivity {
             Toast.makeText(this, "Label updated", Toast.LENGTH_SHORT).show();
 
         } else {
+            adapter.cancelModification();
             Toast.makeText(this, "Label not saved", Toast.LENGTH_SHORT).show();
         }
     }
