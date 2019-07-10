@@ -53,7 +53,9 @@ public class OcrWordLabelAssignment extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator ( R.drawable.ic_close);
 
         setTitle("Choose a Label");
-        word_text_view.setText("Test Word");
+        Bundle bundle = getIntent().getExtras();
+        String word_from_ocr = bundle.getString("word_from_ocr");
+        word_text_view.setText(word_from_ocr);
 
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
         viewModel.getAllLabels().observe(this, new Observer<List<Label>>(){

@@ -2,6 +2,7 @@ package de.uni_passau.dpss.annotation.View.Text.Label;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -45,7 +46,9 @@ public class LabelActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-
+        ActionBar actionbar = getSupportActionBar ();
+        actionbar.setDisplayHomeAsUpEnabled ( true );
+        actionbar.setHomeAsUpIndicator ( R.drawable.ic_close);
 
 
         adapter = new LabelAdapter();

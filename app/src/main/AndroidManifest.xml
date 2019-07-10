@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.uni_passau.dpss.annotation">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,11 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Text.Label.OcrWordLabelAssignment"></activity>
+        <activity android:name=".View.Others.CropForOcr"></activity>
+        <activity android:name=".View.Text.Label.OcrWordLabelAssignment" />
         <activity android:name=".View.Text.Word.WordActivity" />
         <activity
             android:name=".View.Text.Label.LabelActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".View.Text.Word.AddEditWordActivity"
+            android:parentActivityName=".View.Text.Word.WordActivity" />
+        <activity
+            android:name=".View.Text.Label.AddEditLabelActivity"
+            android:parentActivityName=".View.Text.Label.LabelActivity" />
+        <activity android:name=".View.MainMenu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +34,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.Text.Word.AddEditWordActivity"
-            android:parentActivityName=".View.Text.Word.WordActivity" />
-        <activity
-            android:name=".View.Text.Label.AddEditLabelActivity"
-            android:parentActivityName=".View.Text.Label.LabelActivity" />
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".View.Others.OcrActivity" />
+
+        <service
+            android:name=".View.MainMenu.FloatingViewService"
+            android:enabled="true"
+            android:exported="false" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="orc" />
     </application>
 
 </manifest>

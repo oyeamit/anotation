@@ -9,6 +9,7 @@ import android.app.Application;
 
 import java.util.List;
 
+import de.uni_passau.dpss.annotation.Model.Image.ImageObject;
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.Repository.TextRepository;
@@ -78,5 +79,31 @@ public class ViewModel extends AndroidViewModel {
         return repository.getAllLabels();
     }
 
+
+
+
+    public void insert(ImageObject imageObject) {
+        repository.insert(imageObject);
+    }
+
+    public void update(ImageObject imageObject) {
+        repository.update(imageObject);
+    }
+
+    public void delete(ImageObject imageObject) {
+        repository.delete(imageObject);
+    }
+
+    public void deleteAllImageObjects() {
+        repository.deleteAllImageObjects();
+    }
+
+    public LiveData<List<ImageObject>> getAllLiveImageObjects() {
+        return repository.getAllLiveImageObjects();
+    }
+
+    public List<ImageObject> getAllImageObjects() {
+        return repository.getAllImageObjects();
+    }
 
 }

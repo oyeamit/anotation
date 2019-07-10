@@ -7,123 +7,124 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import de.uni_passau.dpss.annotation.Model.AnnotationDao;
+import de.uni_passau.dpss.annotation.Model.Image.ImageObject;
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.TextDatabase;
-import de.uni_passau.dpss.annotation.Model.Text.TextDao;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 
 public class TextRepository {
-    private TextDao textDao;
+    private AnnotationDao annotationDao;
     private LiveData<List<Label>> all_word_label;
 
 
 
     public TextRepository(Application application) {
         TextDatabase database = TextDatabase.getInstance(application);
-        textDao = database.TextDao();
-        all_word_label = textDao.getAllLabels();
+        annotationDao = database.TextDao();
+        all_word_label = annotationDao.getAllLabels();
 
     }
 
 
     public void insert(Word word) {
-        new InsertWordAsyncTask(textDao).execute(word);
+        new InsertWordAsyncTask(annotationDao).execute(word);
     }
 
     public void update(Word word) {
-        new UpdateWordAsyncTask(textDao).execute(word);
+        new UpdateWordAsyncTask(annotationDao).execute(word);
     }
 
     public void delete(Word word) {
-        new DeleteWordAsyncTask(textDao).execute(word);
+        new DeleteWordAsyncTask(annotationDao).execute(word);
     }
 
     public void deleteAllWords() {
-        new DeleteAllWordsAsyncTask(textDao).execute();
+        new DeleteAllWordsAsyncTask(annotationDao).execute();
     }
 
     public void deleteLabelWords(Label label) {
-        new DeleteLabelWordsAsyncTask(textDao).execute(label);
+        new DeleteLabelWordsAsyncTask(annotationDao).execute(label);
 
     }
 
     public LiveData<List<Word>> getAllWords() {
-        return textDao.getAllWords();
+        return annotationDao.getAllWords();
     }
 
     public LiveData<List<Word>> getLabelWords(int selected_label_id) {
-        return textDao.getLabelWords(selected_label_id);
+        return annotationDao.getLabelWords(selected_label_id);
     }
 
 
 
 
     private static class InsertWordAsyncTask extends AsyncTask<Word, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private InsertWordAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private InsertWordAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Word... words) {
-            textDao.insert(words[0]);
+            annotationDao.insert(words[0]);
             return null;
         }
     }
 
     private static class UpdateWordAsyncTask extends AsyncTask<Word, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private UpdateWordAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private UpdateWordAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Word... words) {
-            textDao.update(words[0]);
+            annotationDao.update(words[0]);
             return null;
         }
     }
 
     private static class DeleteWordAsyncTask extends AsyncTask<Word, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private DeleteWordAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private DeleteWordAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Word... words) {
-            textDao.delete(words[0]);
+            annotationDao.delete(words[0]);
             return null;
         }
     }
 
     private static class DeleteAllWordsAsyncTask extends AsyncTask<Void, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private DeleteAllWordsAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private DeleteAllWordsAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            textDao.deleteAllWords();
+            annotationDao.deleteAllWords();
             return null;
         }
     }
 
     private static class DeleteLabelWordsAsyncTask extends AsyncTask<Label, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private DeleteLabelWordsAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private DeleteLabelWordsAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Label... labels) {
-            textDao.deleteLabelWords(labels[0].getLabel_id());
+            annotationDao.deleteLabelWords(labels[0].getLabel_id());
             return null;
         }
     }
@@ -134,85 +135,173 @@ public class TextRepository {
 
 
     public LiveData<List<Label>> getAllLabels(){
-        return textDao.getAllLabels();
+        return annotationDao.getAllLabels();
     }
 
     public void insert(Label label) {
-        new InsertLabelAsyncTask(textDao).execute(label);
+        new InsertLabelAsyncTask(annotationDao).execute(label);
     }
 
     public void update(Label label) {
-        new UpdateLabelAsyncTask(textDao).execute(label);
+        new UpdateLabelAsyncTask(annotationDao).execute(label);
     }
 
     public void delete(Label label) {
-        new DeleteLabelAsyncTask(textDao).execute(label);
+        new DeleteLabelAsyncTask(annotationDao).execute(label);
     }
 
     public void deleteAllLabels() {
-        new DeleteAllLabelsAsyncTask(textDao).execute();
+        new DeleteAllLabelsAsyncTask(annotationDao).execute();
     }
 
 
 
 
     private static class InsertLabelAsyncTask extends AsyncTask<Label, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private InsertLabelAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private InsertLabelAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Label... labels) {
-            textDao.insert(labels[0]);
+            annotationDao.insert(labels[0]);
             return null;
         }
     }
 
     private static class UpdateLabelAsyncTask extends AsyncTask<Label, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private UpdateLabelAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private UpdateLabelAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Label... labels) {
-            textDao.update(labels[0]);
+            annotationDao.update(labels[0]);
             return null;
         }
     }
 
     private static class DeleteLabelAsyncTask extends AsyncTask<Label, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private DeleteLabelAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private DeleteLabelAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Label... labels) {
-            textDao.delete(labels[0]);
-            textDao.deleteLabelWords(labels[0].getLabel_id());
+            annotationDao.delete(labels[0]);
+            annotationDao.deleteLabelWords(labels[0].getLabel_id());
             return null;
         }
     }
 
     private static class DeleteAllLabelsAsyncTask extends AsyncTask<Void, Void, Void> {
-        private TextDao textDao;
+        private AnnotationDao annotationDao;
 
-        private DeleteAllLabelsAsyncTask(TextDao textDao) {
-            this.textDao = textDao;
+        private DeleteAllLabelsAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            textDao.deleteAllLabels();
-            textDao.deleteAllWords();
+            annotationDao.deleteAllLabels();
+            annotationDao.deleteAllWords();
             return null;
         }
     }
+
+
+
+
+
+
+    public List<ImageObject> getAllImageObjects(){
+        return annotationDao.getAllImageObjects();
+    }
+
+
+    public LiveData<List<ImageObject>> getAllLiveImageObjects(){
+        return annotationDao.getAllLiveImageObjects();
+    }
+
+    public void insert(ImageObject imageObject) {
+        new InsertImageObjectAsyncTask(annotationDao).execute(imageObject);
+    }
+
+    public void update(ImageObject imageObject) {
+        new UpdateImageObjectAsyncTask(annotationDao).execute(imageObject);
+    }
+
+    public void delete(ImageObject imageObject) {
+        new deleteImageObjectAsyncTask(annotationDao).execute(imageObject);
+    }
+
+    public void deleteAllImageObjects() {
+        new deleteAllImageObjectsAsyncTask(annotationDao).execute();
+    }
+
+
+    private static class InsertImageObjectAsyncTask extends AsyncTask<ImageObject, Void, Void> {
+        private AnnotationDao annotationDao;
+
+        private InsertImageObjectAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
+        }
+
+        @Override
+        protected Void doInBackground(ImageObject... imageObjects) {
+            annotationDao.insert(imageObjects[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateImageObjectAsyncTask extends AsyncTask<ImageObject, Void, Void> {
+        private AnnotationDao annotationDao;
+
+        private UpdateImageObjectAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
+        }
+
+        @Override
+        protected Void doInBackground(ImageObject... imageObjects) {
+            annotationDao.update(imageObjects[0]);
+            return null;
+        }
+    }
+
+    private static class deleteImageObjectAsyncTask extends AsyncTask<ImageObject, Void, Void> {
+        private AnnotationDao annotationDao;
+
+        private deleteImageObjectAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
+        }
+
+        @Override
+        protected Void doInBackground(ImageObject... imageObjects) {
+            annotationDao.delete(imageObjects[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAllImageObjectsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private AnnotationDao annotationDao;
+
+        private deleteAllImageObjectsAsyncTask(AnnotationDao annotationDao) {
+            this.annotationDao = annotationDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            annotationDao.deleteAllImageObjects();
+            return null;
+        }
+    }
+
 
 
 }
