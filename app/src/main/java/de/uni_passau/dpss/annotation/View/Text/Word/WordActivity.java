@@ -26,6 +26,7 @@ import java.util.List;
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.View.Text.Label.LabelActivity;
+import de.uni_passau.dpss.annotation.View.Text.Label.OcrWordLabelAssignment;
 import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
 import de.uni_passau.dpss.annotation.R;
 
@@ -54,6 +55,7 @@ public class WordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(WordActivity.this, AddEditWordActivity.class);
                 startActivityForResult(intent, ADD_NOTE_REQUEST);
+
             }
         });
 

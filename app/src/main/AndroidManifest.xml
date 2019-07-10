@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Text.Word.WordActivity"></activity>
+        <activity android:name=".View.Text.Label.OcrWordLabelAssignment"></activity>
+        <activity android:name=".View.Text.Word.WordActivity" />
         <activity
             android:name=".View.Text.Label.LabelActivity"
             android:launchMode="singleTop">
@@ -25,7 +26,6 @@
         <activity
             android:name=".View.Text.Label.AddEditLabelActivity"
             android:parentActivityName=".View.Text.Label.LabelActivity" />
-
     </application>
 
 </manifest>
