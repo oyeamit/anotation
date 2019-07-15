@@ -78,6 +78,12 @@ public interface AnnotationDao {
     @Query("SELECT * FROM image_table ORDER BY id ASC")
     List<ImageObject> getAllImageObjects();
 
+    @Query("SELECT COUNT(id) FROM image_table")
+    int getImageObjectRecordSize();
+
+    @Query("SELECT * FROM image_table ORDER BY id LIMIT 50 OFFSET :off")
+    List<ImageObject> getNImageObjectRecord(int off);
+
 
 
 }

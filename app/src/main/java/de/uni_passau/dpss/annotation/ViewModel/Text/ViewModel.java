@@ -106,4 +106,12 @@ public class ViewModel extends AndroidViewModel {
         return repository.getAllImageObjects();
     }
 
+    public List<ImageObject> getNImageObjectRecord(int off) {
+        return repository.getNImageObjectRecord(off);
+    }
+
+    public int getImageObjectRecordSize() {
+        return repository.getImageObjectRecordSize();
+    }
+
 }

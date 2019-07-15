@@ -218,7 +218,13 @@ public class TextRepository {
 
 
 
+    public int getImageObjectRecordSize(){
+        return annotationDao.getImageObjectRecordSize();
+    }
 
+    public List<ImageObject> getNImageObjectRecord(int off){
+        return annotationDao.getNImageObjectRecord(off);
+    }
 
     public List<ImageObject> getAllImageObjects(){
         return annotationDao.getAllImageObjects();
