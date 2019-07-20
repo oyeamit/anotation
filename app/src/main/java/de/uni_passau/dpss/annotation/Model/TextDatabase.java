@@ -15,7 +15,7 @@ import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 
 
-@Database(entities = {Word.class, Label.class, ImageObject.class}, version = 2)
+@Database(entities = {Word.class, Label.class, ImageObject.class}, version = 3)
 public abstract class TextDatabase extends RoomDatabase {
 
     private static TextDatabase instance;
@@ -27,7 +27,7 @@ public abstract class TextDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     TextDatabase.class, "note_database")
                     .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
+                    .addCallback(roomCallback).allowMainThreadQueries()
                     .build();
         }
         return instance;

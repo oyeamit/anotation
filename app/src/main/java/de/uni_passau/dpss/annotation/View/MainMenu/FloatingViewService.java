@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 
 import de.uni_passau.dpss.annotation.R;
+import de.uni_passau.dpss.annotation.View.Image.ExportCsv;
+import de.uni_passau.dpss.annotation.View.Image.ImageAnnotation;
 import de.uni_passau.dpss.annotation.View.Others.CropForOcr;
 import de.uni_passau.dpss.annotation.View.Others.Screenshot;
 import de.uni_passau.dpss.annotation.View.Text.Label.LabelActivity;
@@ -53,6 +55,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     @Override
     public void onCreate() {
         super.onCreate();
+
 
 
         //getting the widget layout from xml using layout inflater
@@ -162,13 +165,19 @@ public class FloatingViewService extends Service implements View.OnClickListener
 
         openCamera.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
-                Toast.makeText(FloatingViewService.this, "Open Camera", Toast.LENGTH_SHORT).show();
+                collapsedView.setVisibility(View.VISIBLE);
+                expandedView.setVisibility(View.GONE);
+                Toast.makeText(FloatingViewService.this, "Image Annotation", Toast.LENGTH_SHORT).show();
+                Intent mintent = new Intent(FloatingViewService.this, ImageAnnotation.class);
+                startActivity(mintent);
 
             }
         });
         openGallery.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
-                Toast.makeText(FloatingViewService.this, "Open Gallery", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FloatingViewService.this, "Export records", Toast.LENGTH_SHORT).show();
+                Intent mintent = new Intent(FloatingViewService.this, ExportCsv.class);
+                startActivity(mintent);
 
             }
         });
@@ -189,6 +198,14 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
                 intent.putExtra("byteArray", bs.toByteArray());
                 startActivity(intent);
+
+
+//                Intent mainIntent = new Intent(getApplicationContext(), FullScreenShot.class);
+//                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(mainIntent);
+
+
+
             }
         });
 

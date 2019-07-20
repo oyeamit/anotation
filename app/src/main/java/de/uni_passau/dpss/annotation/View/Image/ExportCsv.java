@@ -1,13 +1,16 @@
 package de.uni_passau.dpss.annotation.View.Image;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
@@ -22,13 +25,22 @@ import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
 
 public class ExportCsv extends AppCompatActivity {
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export_csv);
 
+        ActionBar actionbar = getSupportActionBar ();
+        actionbar.setDisplayHomeAsUpEnabled ( true );
+        actionbar.setHomeAsUpIndicator ( R.drawable.ic_close);
+
         ActivityCompat.requestPermissions(ExportCsv.this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+
+
 
 
     }
@@ -66,12 +78,14 @@ public class ExportCsv extends AppCompatActivity {
 
     public void CsvUpdate(){
 
+
         ViewModel viewModel = ViewModelProviders.of(this).get(ViewModel.class);
 
         int TOTAL_RECORD = viewModel.getImageObjectRecordSize();
         int offset = 0;
-
+        Log.i("I am here", String.valueOf(TOTAL_RECORD));
         while (offset < TOTAL_RECORD){
+            Log.i("I am here", "byi");
             List<ImageObject> nImageObject = viewModel.getNImageObjectRecord(offset);
             writeCsv(nImageObject);
             offset += 50;
@@ -125,6 +139,12 @@ public class ExportCsv extends AppCompatActivity {
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             Log.i("Sumit", "Success");
             Log.i("Sumit", baseDir);
+            Toast.makeText(this, "Exported at"+baseDir+"/AnalysisData.csv", Toast.LENGTH_SHORT).show();
+
+
+            this.finish();
+
+
 
 
 

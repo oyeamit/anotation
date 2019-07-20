@@ -20,7 +20,14 @@ import androidx.core.app.ActivityCompat;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 
 import de.uni_passau.dpss.annotation.R;
 

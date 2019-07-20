@@ -104,22 +104,22 @@
                         android:orientation="vertical">
                         <Button
                             android:id="@+id/play_btno1"
-                            android:layout_width="50dp"
+                            android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:src="@mipmap/icon_cancel"
                             tools:ignore="ContentDescription,HardcodedText"
-                            android:text="Capture"/>
+                            android:text="Annotate"/>
                         <Button
                             android:id="@+id/play_btno2"
-                            android:layout_width="50dp"
+                            android:layout_width="80dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:src="@mipmap/icon_home"
                             tools:ignore="ContentDescription,HardcodedText"
-                            android:text="Gallery"/>
+                            android:text="Export"/>
 
 
                     </LinearLayout>
