@@ -1,5 +1,13 @@
 package de.uni_passau.dpss.annotation.View.Text.Label;
 
+
+/*
+Author: Amit Manbansh
+
+1. This class is an adapter to the Recycle view for all the Labels(text).
+*/
+
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_passau.dpss.annotation.Model.Text.Label;
-import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.R;
 
 public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.NoteHolder>{

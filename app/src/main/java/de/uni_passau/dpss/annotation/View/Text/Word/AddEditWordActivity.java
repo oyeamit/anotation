@@ -1,5 +1,13 @@
 package de.uni_passau.dpss.annotation.View.Text.Word;
 
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to add or Edit Word
+ into the word-table.
+*/
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;

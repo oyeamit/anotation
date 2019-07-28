@@ -1,4 +1,15 @@
-package de.uni_passau.dpss.annotation.ViewModel.Text;
+package de.uni_passau.dpss.annotation.ViewModel;
+
+/*
+Author: Amit Manbansh
+
+1. This class provides data to UI from Repository.
+
+2. It helps to sustain configuration changes.
+
+3. It contains all the methods to deal with database.
+*/
+
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -26,7 +37,7 @@ public class ViewModel extends AndroidViewModel {
         all_word_label = repository.getAllLabels();
     }
 
-
+// Word(text) part
 
     public void insert(Word word) {
         repository.insert(word);
@@ -57,7 +68,7 @@ public class ViewModel extends AndroidViewModel {
         return repository.getLabelWords(label.getLabel_id());
     }
 
-
+// Label(text) part
 
     public void insert(Label label) {
         repository.insert(label);
@@ -80,7 +91,7 @@ public class ViewModel extends AndroidViewModel {
     }
 
 
-
+// Image part
 
     public void insert(ImageObject imageObject) {
         repository.insert(imageObject);

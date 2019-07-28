@@ -1,9 +1,20 @@
 package de.uni_passau.dpss.annotation.View.MainMenu;
 
 
+/*
+Author: Akshat Sharma & Mihir Sanath Kumar
+
+1. This service class creates overlay menu
+which can be present on the screen until
+destroyed.
+
+2. It is the main menu and contains buttons
+linked to different functionality.
+*/
+
+
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -12,16 +23,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 
 import de.uni_passau.dpss.annotation.R;
 import de.uni_passau.dpss.annotation.View.Image.ExportCsv;
 import de.uni_passau.dpss.annotation.View.Image.ImageAnnotation;
-import de.uni_passau.dpss.annotation.View.Others.CropForOcr;
-import de.uni_passau.dpss.annotation.View.Others.Screenshot;
+
 import de.uni_passau.dpss.annotation.View.Text.Label.LabelActivity;
 
 public class FloatingViewService extends Service implements View.OnClickListener {
@@ -61,13 +69,25 @@ public class FloatingViewService extends Service implements View.OnClickListener
         //getting the widget layout from xml using layout inflater
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null);
 
-        //setting the layout parameters
-        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
+        // For supporting latest android versions (type_phone not supported in latest)
+        final WindowManager.LayoutParams params;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+        } else {
+            params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.TYPE_PHONE,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+        }
+
+
 
 
         //getting windows services and adding the floating view to it
@@ -148,7 +168,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 expandedView1.setVisibility(View.VISIBLE);
                 expandedView2.setVisibility(View.GONE);
                 collapsedView2.setVisibility(View.VISIBLE);
-                Toast.makeText(FloatingViewService.this, "ImageObject annotation pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FloatingViewService.this, "Image annotation", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -159,7 +179,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 expandedView2.setVisibility(View.VISIBLE);
                 expandedView1.setVisibility(View.GONE);
                 collapsedView1.setVisibility(View.VISIBLE);
-                Toast.makeText(FloatingViewService.this, "Text annotation pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FloatingViewService.this, "Text annotation", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -167,7 +187,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
             public void onClick(View view){
                 collapsedView.setVisibility(View.VISIBLE);
                 expandedView.setVisibility(View.GONE);
-                Toast.makeText(FloatingViewService.this, "Image Annotation", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FloatingViewService.this, "Choose Source", Toast.LENGTH_SHORT).show();
                 Intent mintent = new Intent(FloatingViewService.this, ImageAnnotation.class);
                 startActivity(mintent);
 
@@ -188,21 +208,12 @@ public class FloatingViewService extends Service implements View.OnClickListener
             public void onClick(View view){
                 collapsedView.setVisibility(View.VISIBLE);
                 expandedView.setVisibility(View.GONE);
-                Toast.makeText(FloatingViewService.this, "Open OCR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FloatingViewService.this, "Crop Text", Toast.LENGTH_SHORT).show();
 
-                View v1 = view.getRootView();
-                Bitmap bitmap = Screenshot.takeScreenshotOfRootView(v1);
+                Intent mainIntent = new Intent(getApplicationContext(), FullScreenShot.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(mainIntent);
 
-                Intent intent = new Intent(FloatingViewService.this, CropForOcr.class);
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
-                intent.putExtra("byteArray", bs.toByteArray());
-                startActivity(intent);
-
-
-//                Intent mainIntent = new Intent(getApplicationContext(), FullScreenShot.class);
-//                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(mainIntent);
 
 
 
@@ -220,6 +231,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         });
 
     }
+
 
     @Override
     public void onDestroy() {

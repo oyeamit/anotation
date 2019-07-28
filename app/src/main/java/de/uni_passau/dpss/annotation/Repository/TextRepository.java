@@ -13,6 +13,19 @@ import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.TextDatabase;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 
+
+/*
+Author: Amit Manbansh
+1. This Repository will act as a way to
+join different data source say, local storage
+& cloud storage. Right now, it is dealing
+only with local storage.
+
+2. It will call methods mentioned in
+AnnotationDao using TextDatabase object.
+*/
+
+
 public class TextRepository {
     private AnnotationDao annotationDao;
     private LiveData<List<Label>> all_word_label;
@@ -26,6 +39,8 @@ public class TextRepository {
 
     }
 
+
+// Text - Word :: methods
 
     public void insert(Word word) {
         new InsertWordAsyncTask(annotationDao).execute(word);
@@ -132,6 +147,7 @@ public class TextRepository {
 
 
 
+// Text - Label :: methods
 
 
     public LiveData<List<Label>> getAllLabels(){
@@ -217,6 +233,7 @@ public class TextRepository {
 
 
 
+// Image :: methods
 
     public int getImageObjectRecordSize(){
         return annotationDao.getImageObjectRecordSize();

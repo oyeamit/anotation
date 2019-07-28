@@ -1,6 +1,23 @@
 package de.uni_passau.dpss.annotation.Model.Image;
 
+/*
+Author: Amit Manbansh
+This java file is an Entity. It represents one table "image_table".
+It's has following columns:
+    - id;
+    - image_name;
+    - image_location;
+    - image_width;
+    - image_height;
+    - obj_label;
+    - crop_x_cordinate;
+    - crop_y_cordinate;
+    - crop_width;
+    - crop_height;
 
+1. id will be generated automatically every time a record is created.
+2. other variables are passed in constructor.
+*/
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -27,13 +44,7 @@ public class ImageObject {
 
 
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
+//constructor
 
     public ImageObject(String image_name, String image_location, int image_width,
                        int image_height, String obj_label, int crop_x_cordinate,
@@ -48,6 +59,17 @@ public class ImageObject {
         this.crop_width = crop_width;
         this.crop_height = crop_height;
 
+    }
+
+
+// getters and setters
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
 

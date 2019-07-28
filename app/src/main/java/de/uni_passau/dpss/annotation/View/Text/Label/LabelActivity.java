@@ -1,5 +1,13 @@
 package de.uni_passau.dpss.annotation.View.Text.Label;
 
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to view
+ all the Label(text) in database in Recycle view.
+*/
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -25,7 +33,7 @@ import java.util.List;
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.R;
 import de.uni_passau.dpss.annotation.View.Text.Word.WordActivity;
-import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
+import de.uni_passau.dpss.annotation.ViewModel.ViewModel;
 
 public class LabelActivity extends AppCompatActivity {
     public static final int ADD_LABEL_REQUEST = 1;
@@ -172,7 +180,9 @@ public class LabelActivity extends AppCompatActivity {
                 Toast.makeText(this, "All Labels deleted", Toast.LENGTH_SHORT).show();
                 return true;
             default:
+                finish();
                 return super.onOptionsItemSelected(item);
+
         }
     }
 

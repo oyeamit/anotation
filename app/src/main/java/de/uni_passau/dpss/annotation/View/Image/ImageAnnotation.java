@@ -1,6 +1,23 @@
 package de.uni_passau.dpss.annotation.View.Image;
 
 
+/*
+Author: Amit Manbansh
+1. This Activity will let user select the source of
+image to be annotated. Once choosen, it will redirect to crop
+screen.
+
+2. This activity will help to store the image at local storage.
+
+3. It will also recore the crop points, image size, image name.
+
+4. "com.theartofdev.edmodo.cropper.CropImageActivity" library is
+used for crop activity and image source selection.
+
+5. Reference: https://gist.github.com/yccheok/405726623df261dfd648bbd941b0995c
+*/
+
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,7 +37,6 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.system.ErrnoException;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -70,10 +86,6 @@ public class ImageAnnotation extends AppCompatActivity {
     public void onCropImageClick(View view) {
         Bitmap cropped = mCropImageView.getCroppedImage(500, 500);
         float[] cropPoints = mCropImageView.getCropPoints();
-        Log.i("crop point x", String.valueOf(cropPoints[0]));
-        Log.i("crop point y", String.valueOf(cropPoints[1]));
-        Log.i("crop point width", String.valueOf(cropPoints[2]));
-        Log.i("crop point height", String.valueOf(cropPoints[5]));
 
         String image_name = img_location[0];
         String image_location = img_location[1];
@@ -105,8 +117,6 @@ public class ImageAnnotation extends AppCompatActivity {
                         options);
                 width = options.outWidth;
                 height = options.outHeight;
-                Log.i("Bitmap Width : ", String.valueOf(width));
-                Log.i("Bitmap Height : ", String.valueOf(height));
             }catch (Exception e){}
 
 
@@ -284,9 +294,6 @@ public class ImageAnnotation extends AppCompatActivity {
             file_details[0] = fname;
             file_details[1] = file.getParent();
 
-            Log.i("Success Image saved", file_details[0]);
-            Log.i("Success Image saved", file_details[1]);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,8 +321,6 @@ public class ImageAnnotation extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String crop_label = input.getText().toString();
                         if (!crop_label.isEmpty()) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Password Entered", Toast.LENGTH_SHORT).show();
 
                             Intent myIntent = new Intent(ImageAnnotation.this, AnnotationConfirmation.class);
 
@@ -334,7 +339,7 @@ public class ImageAnnotation extends AppCompatActivity {
 
                         } else {
                             Toast.makeText(getApplicationContext(),
-                                    "Password not entered", Toast.LENGTH_SHORT).show();
+                                    "Label not entered", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

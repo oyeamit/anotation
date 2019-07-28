@@ -3,16 +3,24 @@ package de.uni_passau.dpss.annotation.View.Image;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import de.uni_passau.dpss.annotation.Model.Image.ImageObject;
 import de.uni_passau.dpss.annotation.R;
-import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
+import de.uni_passau.dpss.annotation.ViewModel.ViewModel;
+
+/*
+Author: Amit Manbansh
+1. This Activity will display confirmation message
+upon successful completion of Image Annotation flow.
+
+2. It will also display the details of the row added
+in the image-table.
+*/
 
 public class AnnotationConfirmation extends AppCompatActivity {
 
@@ -37,15 +45,6 @@ public class AnnotationConfirmation extends AppCompatActivity {
         int crop_height = mIntent.getIntExtra("CROP_HEIGHT", 0);
         String obj_label = mIntent.getExtras().getString("CROP_LABEL");
 
-        Log.i("Image name", image_name);
-        Log.i("Image location", image_location);
-        Log.i("Image width", String.valueOf(image_width));
-        Log.i("Image height", String.valueOf(image_height));
-        Log.i("Image x cor", String.valueOf(crop_x_cordinate));
-        Log.i("Image y cor", String.valueOf(crop_y_cordinate));
-        Log.i("Image crop_wid", String.valueOf(crop_width));
-        Log.i("Image crop_height", String.valueOf(crop_height));
-        Log.i("Image crop label", obj_label);
 
         ImageObject imageObject = new ImageObject(image_name, image_location, image_width, image_height, obj_label, crop_x_cordinate, crop_y_cordinate, crop_width, crop_height);
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
@@ -71,17 +70,9 @@ public class AnnotationConfirmation extends AppCompatActivity {
         crp_height.setText("Object height: "+crop_height);
         crp_width.setText("Object width: "+crop_width);
         img_location.setText("Image location: "+image_location);
-
-
-
-
-
-
-
-
-
-
-
+        
 
     }
+
+
 }

@@ -1,5 +1,12 @@
 package de.uni_passau.dpss.annotation.View.Text.Word;
 
+/*
+Author: Amit Manbansh
+
+1. This class is an adapter to the Recycle view for all the Words(text).
+*/
+
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

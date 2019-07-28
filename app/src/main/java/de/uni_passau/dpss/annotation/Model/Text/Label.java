@@ -1,5 +1,16 @@
 package de.uni_passau.dpss.annotation.Model.Text;
 
+/*
+Author: Amit Manbansh
+This java file is an Entity. It represents one table "label_table".
+It's has following columns:
+    - label_id;
+    - label;
+
+1. label_id will be generated automatically every time a record is created.
+2. label is passed in constructor.
+*/
+
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,6 +27,9 @@ public class Label implements Parcelable {
 
     private String label;
 
+
+// constructors
+
     @Ignore
     public Label(){
 
@@ -25,7 +39,10 @@ public class Label implements Parcelable {
         this.label = label;
     }
 
-
+/*
+Parcelling Label object to transfer to Word table.
+label_id is foreign key in word table to link both tables
+*/
     protected Label(Parcel in) {
         label_id = in.readInt();
         label = in.readString();
@@ -44,6 +61,8 @@ public class Label implements Parcelable {
     };
 
 
+// getters & setters
+
     public void setLabel_id(int label_id) {
         this.label_id = label_id;
     }
@@ -60,6 +79,11 @@ public class Label implements Parcelable {
         return label_id;
     }
 
+
+/*
+Parcelling Label object to transfer to Word table.
+label_id is foreign key in word table to link both tables
+*/
 
     @Override
     public int describeContents() {

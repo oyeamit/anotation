@@ -3,13 +3,11 @@ package de.uni_passau.dpss.annotation.View.Text.Label;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +24,16 @@ import java.util.List;
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.R;
-import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
+import de.uni_passau.dpss.annotation.ViewModel.ViewModel;
+
+
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to select the
+Label once text from image is collected using OCR
+*/
+
 
 public class OcrWordLabelAssignment extends AppCompatActivity {
 

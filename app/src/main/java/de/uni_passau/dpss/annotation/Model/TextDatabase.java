@@ -15,12 +15,25 @@ import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 
 
+/*
+Author: Amit Manbansh
+1. This Database is a holder class that uses annotation
+to define the list of entities and database version.
+This class content defines the list of DAOs.
+*/
+
+
 @Database(entities = {Word.class, Label.class, ImageObject.class}, version = 3)
 public abstract class TextDatabase extends RoomDatabase {
 
     private static TextDatabase instance;
 
     public abstract AnnotationDao TextDao();
+
+/*
+This method will get only one instance of db connection
+throughout.
+ */
 
     public static synchronized TextDatabase getInstance(Context context) {
         if (instance == null) {
@@ -50,10 +63,6 @@ public abstract class TextDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-//            AnnotationDao.insert(new Word("Word 1", "Class 1"));
-//            AnnotationDao.insert(new Word("Word 2", "Class 2"));
-//            AnnotationDao.insert(new Word("Word 3", "Class 3"));
-//            AnnotationDao.insert(new Word("Word 4", "Class 3"));
             return null;
         }
     }

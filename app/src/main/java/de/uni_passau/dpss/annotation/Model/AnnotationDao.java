@@ -1,6 +1,15 @@
 package de.uni_passau.dpss.annotation.Model;
 
+/*
+Author: Amit Manbansh
+1. This java file is a DAO. It contains all the SQL queries
+to be applied on all the 3 entities. There is a single DAO
+Image and Word Annotations. Each SQL query is followed by
+the calling method name.
 
+2. insert, update, delete methods are pre-defined and hence
+requires no SQL query to be defined.
+*/
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -17,6 +26,8 @@ import de.uni_passau.dpss.annotation.Model.Text.Word;
 
 @androidx.room.Dao
 public interface AnnotationDao {
+
+// Text - Word part
 
     @Insert
     void insert(Word word);
@@ -41,7 +52,7 @@ public interface AnnotationDao {
     void deleteLabelWords(int selected_label_id);
 
 
-
+// Text - Label part
 
     @Query("SELECT * FROM label_table ORDER BY LOWER(label) ASC")
     LiveData<List<Label>> getAllLabels();
@@ -59,6 +70,7 @@ public interface AnnotationDao {
     void deleteAllLabels();
 
 
+// Image Part
 
     @Insert
     void insert(ImageObject imageObject);

@@ -1,5 +1,13 @@
 package de.uni_passau.dpss.annotation.View.Text.Label;
 
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to add or Edit Label
+ into the label-table.
+*/
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;

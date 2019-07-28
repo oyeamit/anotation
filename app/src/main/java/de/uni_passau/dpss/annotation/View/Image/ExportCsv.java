@@ -6,11 +6,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
@@ -21,12 +18,27 @@ import java.util.List;
 
 import de.uni_passau.dpss.annotation.Model.Image.ImageObject;
 import de.uni_passau.dpss.annotation.R;
-import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
+import de.uni_passau.dpss.annotation.ViewModel.ViewModel;
 
 public class ExportCsv extends AppCompatActivity {
 
 
+/*
+Author: Amit Manbansh
+1. This Activity will export all the records of
+image-table into a csv file with time-stamp in name.
 
+2. It will be exported locally.
+
+3. The location of the stored csv will be
+shown in the toast.
+
+4. The success or failure will also be
+shown in the toast.
+
+5. It will write the records in batches. 50 records are
+written in each I/O operation.
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +71,6 @@ public class ExportCsv extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission granted and now can proceed
-                    Log.i("Sumit","Permisiion Received");
                     CsvUpdate();
 
                 } else {
@@ -83,9 +94,7 @@ public class ExportCsv extends AppCompatActivity {
 
         int TOTAL_RECORD = viewModel.getImageObjectRecordSize();
         int offset = 0;
-        Log.i("I am here", String.valueOf(TOTAL_RECORD));
         while (offset < TOTAL_RECORD){
-            Log.i("I am here", "byi");
             List<ImageObject> nImageObject = viewModel.getNImageObjectRecord(offset);
             writeCsv(nImageObject);
             offset += 50;
@@ -98,7 +107,7 @@ public class ExportCsv extends AppCompatActivity {
 
 
         String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-        String fileName = "AnalysisData.csv";
+        String fileName = System.currentTimeMillis() + "_ImageData.csv";
         String filePath = baseDir + File.separator + fileName;
         File f = new File(filePath);
         CSVWriter writer;
@@ -137,9 +146,7 @@ public class ExportCsv extends AppCompatActivity {
 
             writer.close();
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-            Log.i("Sumit", "Success");
-            Log.i("Sumit", baseDir);
-            Toast.makeText(this, "Exported at"+baseDir+"/AnalysisData.csv", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Exported at"+baseDir+fileName, Toast.LENGTH_SHORT).show();
 
 
             this.finish();
@@ -150,7 +157,6 @@ public class ExportCsv extends AppCompatActivity {
 
         } catch (Exception e) {
             Toast.makeText(this, "CSV can't be accessed", Toast.LENGTH_SHORT).show();
-            Log.i("Sumit", e.toString());
         }
         ;
     }

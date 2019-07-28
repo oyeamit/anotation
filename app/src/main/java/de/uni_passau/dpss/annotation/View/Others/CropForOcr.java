@@ -1,5 +1,16 @@
 package de.uni_passau.dpss.annotation.View.Others;
 
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to convert
+text of Image into String via OCR
+
+2. It uses "com.theartofdev.edmodo.cropper.CropImageActivity"
+library for crop activity.
+*/
+
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -19,15 +30,8 @@ import androidx.core.app.ActivityCompat;
 
 
 import com.theartofdev.edmodo.cropper.CropImage;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URI;
+
 
 import de.uni_passau.dpss.annotation.R;
 
@@ -67,8 +71,6 @@ public class CropForOcr extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-//            CropImage.getActivityResult(data).getCropPoints();
-//            CropImage.getActivityResult(data).getCropRect();
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Intent intent = new Intent(this,OcrActivity.class);

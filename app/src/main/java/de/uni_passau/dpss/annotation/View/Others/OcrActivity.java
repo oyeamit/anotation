@@ -1,12 +1,24 @@
 package de.uni_passau.dpss.annotation.View.Others;
 
+
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to convert
+text of Image into String via OCR
+
+2. It uses "com.theartofdev.edmodo.cropper.CropImageActivity"
+library for crop activity.
+*/
+
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.SparseArray;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +32,6 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.io.ByteArrayOutputStream;
-
 import de.uni_passau.dpss.annotation.R;
 import de.uni_passau.dpss.annotation.View.Text.Label.OcrWordLabelAssignment;
 
@@ -47,7 +56,7 @@ public class OcrActivity extends AppCompatActivity {
         buttonAddLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(OcrActivity.this,"Floating Button Pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OcrActivity.this,"Choose Label", Toast.LENGTH_SHORT).show();
                 String word_from_ocr = editText.getText().toString().trim();
                 Intent intent = new Intent(OcrActivity.this, OcrWordLabelAssignment.class);
                 intent.putExtra("word_from_ocr", word_from_ocr);
@@ -104,7 +113,6 @@ public class OcrActivity extends AppCompatActivity {
                     sb.append(myItem.getValue());
                     sb.append("\n");
                 }
-                Log.i("Text",sb.toString());
                 editText.setText(sb.toString());
 
             }
@@ -112,6 +120,15 @@ public class OcrActivity extends AppCompatActivity {
 
         };
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

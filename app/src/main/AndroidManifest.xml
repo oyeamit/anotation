@@ -41,16 +41,17 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".View.Others.OcrActivity" />
         <activity
-            android:name=".View.MainMenu.FullScreenShot"
-            android:excludeFromRecents="true"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoDisplay" />
+            android:name=".View.MainMenu.FullScreenShot" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+
 
         <service
             android:name=".View.MainMenu.FloatingViewService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".View.MainMenu.ScreenshotService"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

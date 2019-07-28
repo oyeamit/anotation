@@ -13,6 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import de.uni_passau.dpss.annotation.R;
 
+
+/*
+Author: Akshat Sharma & Mihir Kumar
+
+1. This class Activity is creating the starting point of the App.
+Once button pressed, it opens overlay menu on the screen.
+
+*/
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 2084;
 

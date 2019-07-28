@@ -1,5 +1,11 @@
 package de.uni_passau.dpss.annotation.View.Text.Word;
 
+/*
+Author: Amit Manbansh
+
+1. This class activity provides user with UI to view
+ all the Word(text) in database in Recycle view.
+*/
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +32,7 @@ import java.util.List;
 import de.uni_passau.dpss.annotation.Model.Text.Label;
 import de.uni_passau.dpss.annotation.Model.Text.Word;
 import de.uni_passau.dpss.annotation.View.Text.Label.LabelActivity;
-import de.uni_passau.dpss.annotation.ViewModel.Text.ViewModel;
+import de.uni_passau.dpss.annotation.ViewModel.ViewModel;
 import de.uni_passau.dpss.annotation.R;
 
 public class WordActivity extends AppCompatActivity {
